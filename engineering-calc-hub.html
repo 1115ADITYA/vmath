@@ -101,6 +101,26 @@
       margin-left: 8px;
     }
 
+    .back-btn {
+      background: rgba(79,138,255,0.15);
+      border: 1px solid rgba(79,138,255,0.3);
+      color: var(--accent1);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn:hover {
+      background: rgba(79,138,255,0.25);
+      border-color: rgba(79,138,255,0.5);
+      transform: translateX(-2px);
+    }
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
@@ -453,7 +473,10 @@
 
   <!-- Nav -->
   <nav>
-    <div class="nav-logo">EngCalc<span>// Hub</span></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button id="backBtn" class="back-btn" title="Go back" style="display: none;">←</button>
+      <div class="nav-logo">EngCalc<span>// Hub</span></div>
+    </div>
     <ul class="nav-links">
       <li><a href="#numerical">Numerical</a></li>
       <li><a href="#calculus">Calculus</a></li>
@@ -955,6 +978,21 @@
   </footer>
 
   <script>
+    // Back button functionality
+    const backBtn = document.getElementById('backBtn');
+    
+    function updateBackButton() {
+      // Show back button if there's history to go back to
+      backBtn.style.display = window.history.length > 1 ? 'flex' : 'none';
+    }
+    
+    backBtn.addEventListener('click', () => {
+      window.history.back();
+    });
+    
+    window.addEventListener('pageshow', updateBackButton);
+    updateBackButton();
+
     // Intersection Observer for scroll animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
